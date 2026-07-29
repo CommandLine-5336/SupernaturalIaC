@@ -10,6 +10,9 @@ terraform/state_bucket/terraform.tfstate.backup
 terraform/state_bucket/terraform.tfstate
 terraform/state_bucket/terraform.tfvars
 .terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
 .git
 **/.venv/
 **/__pycache__/
