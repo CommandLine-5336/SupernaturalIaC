@@ -1,9 +1,10 @@
 variable "aws_region" {
+  type = string
   default = "us-east-1"
 }
 
 variable "ecr_services" {
-  description = "The list of names in ecr regestry"
+  description = "The list of names in ecr registry"
   type        = set(string)
   default     = ["frontend", "general", "auth", "cleanup", "mail_sending"]
 }
