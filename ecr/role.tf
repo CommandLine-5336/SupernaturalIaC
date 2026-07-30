@@ -32,7 +32,7 @@ resource "aws_iam_policy" "github_action_policy" {
             "ecr:UploadLayerPart"
           ],
           "Resource" : [
-            "arn:aws:ecr:us-east-1:704427427594:repository"
+            "arn:aws:ecr:us-east-1:704427427594:repository/*"
           ]
         }
       ]

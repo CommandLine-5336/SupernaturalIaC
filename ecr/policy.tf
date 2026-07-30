@@ -7,7 +7,7 @@ resource "aws_ecr_lifecycle_policy" "services" {
     rules = [
       {
         rulePriority = 1
-        description  = "Delete dev and test images older than 3 days"
+        description  = "Delete test images older than 3 days"
         selection = {
           tagStatus      = "tagged"
           tagPatternList = ["test-*"]
@@ -33,7 +33,7 @@ resource "aws_ecr_lifecycle_policy" "services" {
       },
       {
         rulePriority = 2
-        description  = "Delete devimages older than 14 days"
+        description  = "Delete dev images older than 14 days"
         selection = {
           tagStatus      = "tagged"
           tagPatternList = ["dev-*"]
