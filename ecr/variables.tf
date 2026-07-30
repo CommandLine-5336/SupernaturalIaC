@@ -6,7 +6,7 @@ variable "aws_region" {
 variable "ecr_services" {
   description = "The list of names in ecr registry"
   type        = set(string)
-  default     = ["frontend", "general", "auth", "cleanup", "mail_sending"]
+  default     = ["frontend", "general", "auth", "cleanup", "mail_sending","password_generator"]
 }
 
 variable "image_mutability" {
