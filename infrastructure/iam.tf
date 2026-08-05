@@ -14,7 +14,7 @@ module "eks_cluster_role" {
 module "eks_node_role" {
   source           = "../modules/iam_for_eks"
   name             = "eks-node-role"
-  trusted_services = ["eks.amazonaws.com"]
+  trusted_services = ["ec2.amazonaws.com"]
 
   aws_managed_policy_arns = [
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
