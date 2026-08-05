@@ -24,8 +24,8 @@ module "eks_node_role" {
 }
 
 module "ecr_github_action" {
-  source           = "../modules/iam_for_ecr"
-  name = "github_action_ecr"
+  source = "../modules/iam_for_ecr"
+  name   = "github_action_ecr"
 }
 
 moved {
