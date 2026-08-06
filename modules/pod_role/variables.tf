@@ -2,11 +2,6 @@ variable "name" {
   description = "Name of the IAM role "
   type        = string
 }
-variable "trusted_services" {
-  description = "List of trusted services for the IAM role"
-  type        = list(string)
-  default     = []
-}
 variable "tags" {
   description = "List of tags to apply to the IAM role"
   type        = map(string)
@@ -30,7 +25,7 @@ variable "namespace" {
   description = "Namespace for pod identity"
   type        = string
 }
-variable "service_name" {
-  description = "Service name (pod) for pod identity"
+variable "service_account_name" {
+  description = "Service account name (pod) for pod identity"
   type        = string
 }

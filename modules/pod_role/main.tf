@@ -48,9 +48,9 @@ resource "aws_iam_role_policy" "inline" {
   policy   = each.value
 }
 
-resource "aws_eks_pod_identity_association" "example" {
+resource "aws_eks_pod_identity_association" "this" {
   cluster_name    = var.cluster_name
   namespace       = var.namespace
-  service_account = var.service_name
+  service_account = var.service_account_name
   role_arn        = aws_iam_role.this.arn
 }

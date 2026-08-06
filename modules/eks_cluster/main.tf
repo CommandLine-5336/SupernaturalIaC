@@ -72,7 +72,7 @@ resource "aws_eks_addon" "addons" {
 
   cluster_name                = aws_eks_cluster.eks-cluster.name
   addon_name                  = each.value.name
-  addon_version               = data.aws_eks_addon_version.eks_addons[each.key].addon_version
+  addon_version               = data.aws_eks_addon_version.eks_addons[each.key].version
   resolve_conflicts_on_create = "OVERWRITE"
 
   depends_on = [aws_eks_node_group.ec2-node-group]
