@@ -1,13 +1,13 @@
 variable "ecr_services" {
   description = "The list of names in ecr registry"
   type        = set(string)
-  default     = [
+  default = [
     "frontend",
     "general",
     "auth",
     "cleanup",
     "mail_sending",
-    "password_generator"]
+  "password_generator"]
 }
 
 variable "image_mutability" {
@@ -24,7 +24,7 @@ variable "encrypt_type" {
 variable "common_tags" {
   description = "general tags for each repo"
   type        = map(string)
-  default     = {
+  default = {
     ManagedBy = "terrafrom"
   }
 }
