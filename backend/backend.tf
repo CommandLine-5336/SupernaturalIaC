@@ -12,7 +12,9 @@ provider "aws" {
 }
 resource "aws_s3_bucket" "state_bucket" {
   bucket = "supernatural-s3-state"
-
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 

@@ -1,8 +1,6 @@
 resource "aws_iam_user" "github_action_user" {
-  name = "github_action_ecr"
-  tags = {
-    description = "role for github action pul and build ecr"
-  }
+  name = var.name
+  tags = var.tags
 }
 
 resource "aws_iam_policy" "github_action_policy" {
