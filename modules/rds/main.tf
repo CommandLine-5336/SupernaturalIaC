@@ -30,8 +30,7 @@ resource "aws_db_instance" "default" {
   instance_class = var.instance_type
 
   allocated_storage = var.allocated_storage
-  # max_allocated_storage  = 20
-  storage_type = var.storage_type
+  storage_type      = var.storage_type
 
   db_name  = var.rds_name
   username = var.rds_user
@@ -40,6 +39,8 @@ resource "aws_db_instance" "default" {
 
   parameter_group_name = "default.postgres17"
 
-  publicly_accessible = false
+  publicly_accessible = var.publicly_accessible
+  skip_final_snapshot = true
+
 
 }

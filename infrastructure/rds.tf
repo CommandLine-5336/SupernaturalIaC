@@ -6,7 +6,8 @@ module "rds_instance" {
   engine            = "postgres"
   allocated_storage = 20
 
-  rds_name     = var.rds_name
-  rds_user     = var.rds_user
-  rds_password = var.rds_password
+  rds_name            = var.rds_name
+  rds_user            = var.rds_user
+  rds_password        = var.rds_password
+  publicly_accessible = true # test for maxym
 }

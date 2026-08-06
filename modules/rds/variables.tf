@@ -50,3 +50,8 @@ variable "parameter_group_name" {
   type    = string
   default = "default.postgres17"
 }
+
+variable "publicly_accessible" {
+  type    = bool
+  default = false
+}
