@@ -1,5 +1,5 @@
 
-# ingore all using keyword
+# ignore all using keyword
 # tflint-ignore: all
 
 terraform {
@@ -41,7 +41,7 @@ resource "aws_db_instance" "default" {
   password = var.rds_password
   # manage_master_user_password = true  rds can manage password by
 
-  parameter_group_name = "default.postgres17"
+  # parameter_group_name = "default.postgres17"
 
   publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true

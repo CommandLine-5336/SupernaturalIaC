@@ -46,10 +46,10 @@ variable "instance_type" {
   default     = "db.t4g.micro"
 }
 
-variable "parameter_group_name" {
-  type    = string
-  default = "default.postgres17"
-}
+# variable "parameter_group_name" {
+#   type    = string
+#   default = "default.postgres17"
+# }
 
 variable "publicly_accessible" {
   type    = bool
