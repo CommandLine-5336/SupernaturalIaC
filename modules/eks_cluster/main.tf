@@ -47,8 +47,6 @@ resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
 
 resource "aws_launch_template" "this" {
   metadata_options {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
     http_put_response_hop_limit = 2 # <---------------- HERE!!!
   }
 
