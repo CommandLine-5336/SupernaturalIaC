@@ -22,3 +22,23 @@ module "eks_node_role" {
     "arn:aws:iam::aws:policy/AmazonElasticContainerRegistryPublicReadOnly",
   ]
 }
+
+module "ecr_github_action" {
+  source = "../modules/iam_for_ecr"
+  name   = "github_action_ecr"
+}
+
+moved {
+  from = aws_iam_policy.github_action_policy
+  to   = module.ecr_github_action.aws_iam_policy.github_action_policy
+}
+
+moved {
+  from = aws_iam_user.github_action_user
+  to   = module.ecr_github_action.aws_iam_user.github_action_user
+}
+
+moved {
+  from = aws_iam_user_policy_attachment.github_action_access
+  to   = module.ecr_github_action.aws_iam_user_policy_attachment.github_action_access
+}
