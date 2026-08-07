@@ -1,0 +1,19 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: frontend-intentions
+  namespace: app
+spec:
+  destination:
+    name: frontend
+  sources:
+    - name: general
+      action: allow
+    - name: mail_service
+      action: allow
+    - name: auth
+      action: allow
+    - name: cleanup
+      action: allow
+    - name: "*"
+      action: deny
