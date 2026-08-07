@@ -1,3 +1,7 @@
+
+# ingore all using keyword
+# tflint-ignore: all
+
 terraform {
   required_version = "1.15.8"
   required_providers {

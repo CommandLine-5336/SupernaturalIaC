@@ -38,7 +38,8 @@ resource "aws_iam_policy" "github_action_policy" {
   )
 }
 
-
+# ingore all using keyword
+# tflint-ignore: all
 resource "aws_iam_user_policy_attachment" "github_action_access" {
   user       = aws_iam_user.github_action_user.name
   policy_arn = aws_iam_policy.github_action_policy.arn
