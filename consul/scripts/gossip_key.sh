@@ -1,5 +1,4 @@
 # Generate key
-consul keygen
 openssl rand -base64 32
 
 # Create Kubernetes secret
