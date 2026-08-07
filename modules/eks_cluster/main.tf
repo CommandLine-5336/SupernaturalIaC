@@ -7,6 +7,9 @@ terraform {
     }
   }
 }
+
+
+
 resource "aws_eks_cluster" "eks-cluster" {
   name     = var.eks_name
   role_arn = var.cluster_role_arn
@@ -41,6 +44,19 @@ resource "aws_iam_openid_connect_provider" "eks_oidc_provider" {
   client_id_list = ["sts.amazonaws.com"]
 }
 
+
+resource "aws_launch_template" "this" {
+  metadata_options {
+    http_endpoint               = "enabled"
+    http_tokens                 = "required"
+    http_put_response_hop_limit = 2 # <---------------- HERE!!!
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
 resource "aws_eks_node_group" "ec2-node-group" {
   cluster_name    = aws_eks_cluster.eks-cluster.name
   node_group_name = var.node_group_name
@@ -50,6 +66,11 @@ resource "aws_eks_node_group" "ec2-node-group" {
     desired_size = 3
     max_size     = 5
     min_size     = 1
+  }
+
+  launch_template { # <---------------------------- HERE!!!
+    id      = aws_launch_template.this.id
+    version = aws_launch_template.this.latest_version
   }
   update_config {
     max_unavailable = 1
