@@ -3,7 +3,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.52.0"
+      version = "~> 6.58"
     }
   }
 }
@@ -11,7 +11,9 @@ resource "aws_eks_cluster" "eks-cluster" {
   name     = var.eks_name
   role_arn = var.cluster_role_arn
   version  = var.eks_version
-
+  access_config {
+    authentication_mode = "API"
+  }
   vpc_config {
     endpoint_private_access = true
     endpoint_public_access  = true
@@ -45,8 +47,8 @@ resource "aws_eks_node_group" "ec2-node-group" {
   node_role_arn   = var.node_role_arn
   subnet_ids      = var.vpc_private_subnet_ids
   scaling_config {
-    desired_size = 1
-    max_size     = 3
+    desired_size = 3
+    max_size     = 5
     min_size     = 1
   }
   update_config {
