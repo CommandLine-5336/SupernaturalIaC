@@ -37,11 +37,23 @@ module "eks-cluster" {
 
 }
 
+module "consul-role" {
+  source               = "../modules/pod_role"
+  name                 = "consul-role"
+  cluster_name         = module.eks-cluster.cluster_name
+  namespace            = "kube-system"
+  service_account_name = "aws-load-balancer-controller"
+  aws_managed_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonEKSLoadBalancingPolicy",
+    "arn:aws:iam::704427427594:role/AmazonEKSLoadBalancerControllerRole",
+  ]
+}
+
 module "frontend-pod-role" {
   source               = "../modules/pod_role"
   name                 = "frontend-pod-role"
   cluster_name         = module.eks-cluster.cluster_name
-  namespace            = "supernatural"
+  namespace            = "app"
   service_account_name = "frontend"
 
   inline_policies = {
@@ -68,7 +80,7 @@ module "general-pod-role" {
   source               = "../modules/pod_role"
   name                 = "general-pod-role"
   cluster_name         = module.eks-cluster.cluster_name
-  namespace            = "supernatural"
+  namespace            = "app"
   service_account_name = "general"
 
   inline_policies = {
@@ -125,7 +137,7 @@ module "mail-service-pod-role" {
   source               = "../modules/pod_role"
   name                 = "mail-service-pod-role"
   cluster_name         = module.eks-cluster.cluster_name
-  namespace            = "supernatural"
+  namespace            = "app"
   service_account_name = "mail-service"
   inline_policies = {
     policy = jsonencode({
@@ -170,7 +182,7 @@ module "auth-pod-role" {
   name   = "auth-pod-role"
 
   cluster_name         = module.eks-cluster.cluster_name
-  namespace            = "supernatural"
+  namespace            = "app"
   service_account_name = "auth"
   inline_policies = {
     policy = jsonencode({
@@ -215,7 +227,7 @@ module "cleanup-pod-role" {
   name   = "cleanup-pod-role"
 
   cluster_name         = module.eks-cluster.cluster_name
-  namespace            = "supernatural"
+  namespace            = "app"
   service_account_name = "cleanup"
   inline_policies = {
     policy = jsonencode({
@@ -260,7 +272,7 @@ module "password-protection-pod-role" {
   name   = "password-protection-pod-role"
 
   cluster_name         = module.eks-cluster.cluster_name
-  namespace            = "supernatural"
+  namespace            = "app"
   service_account_name = "password-protection"
   inline_policies = {
     policy = jsonencode({
