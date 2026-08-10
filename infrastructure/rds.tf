@@ -10,4 +10,8 @@ module "rds_instance" {
   rds_user            = var.rds_user
   rds_password        = var.rds_password
   publicly_accessible = true # test for maxym
+
+
+  subnet_ids             = module.castom_vpc.private_db_subnets
+  vpc_security_group_ids = [aws_security_group.private_db_sg.id]
 }
