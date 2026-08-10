@@ -10,13 +10,17 @@ terraform {
 
 data "aws_iam_policy_document" "assume_role" {
   statement {
-    actions = ["sts:AssumeRole"]
-    effect  = "Allow"
+    effect = "Allow"
 
     principals {
       type        = "Service"
-      identifiers = var.trusted_services
+      identifiers = ["pods.eks.amazonaws.com"]
     }
+
+    actions = [
+      "sts:AssumeRole",
+      "sts:TagSession"
+    ]
   }
 }
 
@@ -42,4 +46,11 @@ resource "aws_iam_role_policy" "inline" {
   name     = each.key
   role     = aws_iam_role.this.id
   policy   = each.value
+}
+
+resource "aws_eks_pod_identity_association" "this" {
+  cluster_name    = var.cluster_name
+  namespace       = var.namespace
+  service_account = var.service_account_name
+  role_arn        = aws_iam_role.this.arn
 }
