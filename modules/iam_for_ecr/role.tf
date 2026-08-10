@@ -1,3 +1,13 @@
+terraform {
+  required_version = "1.15.8"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.58"
+    }
+  }
+}
+
 resource "aws_iam_user" "github_action_user" {
   name = var.name
   tags = var.tags

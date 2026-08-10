@@ -22,6 +22,10 @@ resource "aws_secretsmanager_secret_version" "rds_secrets" {
 
   })
 }
+resource "aws_db_subnet_group" "db_subnet_group" {
+  name       = "${var.identifier}-subnet-group"
+  subnet_ids = var.subnet_ids
+}
 
 resource "aws_db_instance" "default" {
   identifier     = var.identifier
@@ -35,12 +39,13 @@ resource "aws_db_instance" "default" {
   db_name  = var.rds_name
   username = var.rds_user
   password = var.rds_password
-  # manage_master_user_password = true  rds can manage password by
+  # manage_master_user_password = true  rds can manage password by itself
 
-  parameter_group_name = "default.postgres17"
+  parameter_group_name = var.parameter_group_name
 
   publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true
 
-
+  db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
+  vpc_security_group_ids = var.vpc_security_group_ids
 }
