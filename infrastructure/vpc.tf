@@ -1,6 +1,6 @@
 module "custom_vpc" {
   source              = "../modules/vpc"
-  vpc_name            = "myniga"
+  vpc_name            = "myvpc"
   azs                 = ["us-east-1a", "us-east-1b"]
   vpc_cidr            = "10.0.0.0/16"
   private_app_subnets = ["10.0.10.0/24", "10.0.11.0/24"]
