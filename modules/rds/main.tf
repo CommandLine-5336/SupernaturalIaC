@@ -41,11 +41,23 @@ resource "aws_db_instance" "default" {
   password = var.rds_password
   # manage_master_user_password = true  rds can manage password by itself
 
-  parameter_group_name = var.parameter_group_name
+  parameter_group_name = aws_db_parameter_group.rds_postgres_group.name
 
   publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true
 
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
   vpc_security_group_ids = var.vpc_security_group_ids
+}
+
+
+resource "aws_db_parameter_group" "rds_postgres_group" {
+  name        = "custom-postgres17"
+  family      = "postgres"
+  description = "Custom parameter group for MySQL 8.0 production workloads"
+
+  parameter {
+    name  = "log_statement" # log everything that db, do remove in prod stage
+    value = "all"
+  }
 }

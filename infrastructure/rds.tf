@@ -12,6 +12,6 @@ module "rds_instance" {
   publicly_accessible = true # test for maxym
 
 
-  subnet_ids             = module.castom_vpc.private_db_subnets
+  subnet_ids             = module.custom_vpc.private_db_subnets
   vpc_security_group_ids = [aws_security_group.private_db_sg.id]
 }

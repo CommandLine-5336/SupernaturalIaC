@@ -1,4 +1,4 @@
-module "castom_vpc" {
+module "custom_vpc" {
   source              = "../modules/vpc"
   vpc_name            = "myniga"
   azs                 = ["us-east-1a", "us-east-1b"]

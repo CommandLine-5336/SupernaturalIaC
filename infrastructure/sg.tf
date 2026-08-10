@@ -1,7 +1,7 @@
 resource "aws_security_group" "private_app_sg" {
   name        = "private_app_sg"
   description = "Security group for EKS worker nodes and Consul"
-  vpc_id      = module.castom_vpc.vpc_id
+  vpc_id      = module.custom_vpc.vpc_id
 
 
   ingress {
@@ -9,14 +9,14 @@ resource "aws_security_group" "private_app_sg" {
     from_port   = 8080
     to_port     = 8080
     protocol    = "tcp"
-    cidr_blocks = module.castom_vpc.public_subnets
+    cidr_blocks = module.custom_vpc.public_subnets
   }
   ingress {
     description = "Allow Consul Web UI and API from Public Subnets"
     from_port   = 8500
     to_port     = 8500
     protocol    = "tcp"
-    cidr_blocks = module.castom_vpc.public_subnets
+    cidr_blocks = module.custom_vpc.public_subnets
   }
 
   ingress {
@@ -40,7 +40,7 @@ resource "aws_security_group" "private_app_sg" {
 resource "aws_security_group" "private_db_sg" {
   name        = "private_db_sg"
   description = "Security group for Database"
-  vpc_id      = module.castom_vpc.vpc_id
+  vpc_id      = module.custom_vpc.vpc_id
 
   ingress {
     description     = "Allow PostgreSQL traffic from app"
