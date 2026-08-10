@@ -28,7 +28,7 @@ resource "aws_security_group" "private_app_sg" {
   }
 
   egress {
-    description = "Allow all outbound trafic"
+    description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
@@ -47,7 +47,7 @@ resource "aws_security_group" "private_db_sg" {
     from_port       = 5432
     to_port         = 5432
     protocol        = "tcp"
-    security_groups = [aws_security_group.private_app_sg.id] # DB avalible only for private_app_sg
+    security_groups = [aws_security_group.private_app_sg.id] # DB available only for private_app_sg
   }
 
   egress {
