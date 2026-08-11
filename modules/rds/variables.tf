@@ -46,12 +46,18 @@ variable "instance_type" {
   default     = "db.t4g.micro"
 }
 
-# variable "parameter_group_name" {
-#   type    = string
-#   default = "default.postgres17"
-# }
-
 variable "publicly_accessible" {
   type    = bool
   default = false
+}
+
+
+variable "vpc_security_group_ids" {
+  description = "List of SG IDs for RDS"
+  type        = list(string)
+}
+
+variable "subnet_ids" {
+  description = "List of Subnet IDs for RDS SG"
+  type        = list(string)
 }
