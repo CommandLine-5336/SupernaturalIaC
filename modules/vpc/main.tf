@@ -82,3 +82,88 @@ resource "aws_route_table_association" "public_route_association" {
   subnet_id      = aws_subnet.public[count.index].id
   route_table_id = aws_route_table.public_route.id
 }
+
+
+resource "aws_eip" "nat_eip" {
+  count  = length(var.public_subnets)
+  domain = "vpc"
+  tags = {
+    Name        = "${var.env}-nat-gw-eip-${count.index}"
+    Environment = var.env
+  }
+}
+
+resource "aws_nat_gateway" "nat" {
+  count         = length(var.public_subnets)
+  allocation_id = aws_eip.nat_eip[count.index].id
+  subnet_id     = aws_subnet.public[count.index].id
+  depends_on    = [aws_internet_gateway.igw]
+  tags = {
+    Name        = "${var.env}-nat-gw-${count.index}"
+    Environment = var.env
+  }
+}
+
+
+resource "aws_route_table" "private_route" {
+  count  = length(var.public_subnets)
+  vpc_id = aws_vpc.myvpc.id
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.nat[count.index].id
+  }
+
+  tags = {
+    Name        = "${var.env}-route-table-private-${count.index}"
+    Environment = var.env
+  }
+}
+
+resource "aws_route_table_association" "private_app_routes" {
+  count          = length(var.private_app_subnets)
+  subnet_id      = aws_subnet.private_app[count.index].id
+  route_table_id = aws_route_table.private_route[count.index % length(var.public_subnets)].id
+}
+resource "aws_route_table_association" "private_db_routes" {
+  count          = length(var.private_db_subnets)
+  subnet_id      = aws_subnet.private_db[count.index].id
+  route_table_id = aws_route_table.private_route[count.index % length(var.public_subnets)].id
+}
+
+
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id            = aws_vpc.myvpc.id
+  service_name      = "com.amazonaws.${var.region}.s3"
+  vpc_endpoint_type = "Gateway"
+
+  route_table_ids = concat(
+    [aws_route_table.public_route.id],
+    aws_route_table.private_route[*].id
+  )
+
+  tags = {
+    Name        = "${var.env}-vpc-s3"
+    Environment = var.env
+  }
+}
+
+
+resource "aws_vpc_endpoint" "ecr-dkr-endpoint" {
+  vpc_id              = aws_vpc.myvpc.id
+  private_dns_enabled = true
+  service_name        = "com.amazonaws.${var.region}.ecr.dkr"
+  vpc_endpoint_type   = "Interface"
+  security_group_ids  = [var.ecr_sg_id]
+  subnet_ids          = aws_subnet.private_app[*].id
+
+}
+
+resource "aws_vpc_endpoint" "ecr-api-endpoint" {
+  vpc_id              = aws_vpc.myvpc.id
+  service_name        = "com.amazonaws.${var.region}.ecr.api"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  security_group_ids  = [var.ecr_sg_id]
+  subnet_ids          = aws_subnet.private_app[*].id
+}

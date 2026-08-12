@@ -31,3 +31,18 @@ variable "eks_name" {
   type        = string
   default     = "supernatural-eks-cluster"
 }
+
+variable "env" {
+  type    = string
+  default = "Dev"
+}
+
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "ecr_sg_id" {
+  description = "Sg ID for the ECR endpoints"
+  type        = string
+}

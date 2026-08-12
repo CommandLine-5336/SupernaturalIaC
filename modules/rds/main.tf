@@ -61,12 +61,15 @@ resource "aws_db_instance" "rds_postgres" {
 
 
 resource "aws_db_parameter_group" "rds_postgres_group" {
-  name        = "custom-postgres17"
+  name_prefix = "custom-postgres17-"
   family      = "postgres17"
-  description = "Custom parameter group for MySQL 8.0 production workloads"
+  description = "Custom parameter group for postgres 17 production workloads"
 
   parameter {
     name  = "log_statement" # log everything that db do, remove in prod stage
     value = "all"
+  }
+  lifecycle {
+    create_before_destroy = true
   }
 }

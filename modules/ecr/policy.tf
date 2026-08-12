@@ -10,7 +10,7 @@ resource "aws_ecr_lifecycle_policy" "services" {
         description  = "Delete test images older than 3 days"
         selection = {
           tagStatus      = "tagged"
-          tagPatternList = ["test-*"]
+          tagPatternList = ["test_*"]
           countType      = "sinceImagePushed"
           countUnit      = "days"
           countNumber    = 3
@@ -36,7 +36,7 @@ resource "aws_ecr_lifecycle_policy" "services" {
         description  = "Delete dev images older than 14 days"
         selection = {
           tagStatus      = "tagged"
-          tagPatternList = ["dev-*"]
+          tagPatternList = ["dev_*"]
           countType      = "sinceImagePushed"
           countUnit      = "days"
           countNumber    = 14
