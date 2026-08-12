@@ -1,3 +1,7 @@
+
+# ignore all using keyword
+# tflint-ignore: all
+
 terraform {
   required_version = "1.15.8"
   required_providers {
@@ -42,6 +46,9 @@ resource "aws_db_instance" "default" {
   # manage_master_user_password = true  rds can manage password by itself
 
   parameter_group_name = aws_db_parameter_group.rds_postgres_group.name
+  # manage_master_user_password = true  rds can manage password by
+
+  # parameter_group_name = "default.postgres17"
 
   publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true
@@ -60,4 +67,5 @@ resource "aws_db_parameter_group" "rds_postgres_group" {
     name  = "log_statement" # log everything that db, do remove in prod stage
     value = "all"
   }
+
 }

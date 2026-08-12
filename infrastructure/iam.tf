@@ -20,6 +20,7 @@ module "eks_node_role" {
     "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
     "arn:aws:iam::aws:policy/AmazonEKSWorkerNodeMinimalPolicy",
     "arn:aws:iam::aws:policy/AmazonElasticContainerRegistryPublicReadOnly",
+    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
   ]
 }
 
