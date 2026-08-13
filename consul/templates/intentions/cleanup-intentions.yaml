@@ -1,0 +1,13 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: cleanup-intentions
+  namespace: app
+spec:
+  destination:
+    name: cleanup
+  sources:
+    - name: frontend
+      action: allow
+    - name: "*"
+      action: deny

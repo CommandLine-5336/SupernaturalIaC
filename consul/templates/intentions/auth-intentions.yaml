@@ -1,0 +1,13 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: auth
+  namespace: app
+spec:
+  destination:
+    name: auth
+  sources:
+    - name: frontend
+      action: allow
+    - name: "*"
+      action: deny

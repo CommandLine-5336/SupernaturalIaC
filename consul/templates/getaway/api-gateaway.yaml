@@ -1,0 +1,30 @@
+apiVersion: gateway.networking.k8s.io/v1
+# The Gateway is the main infrastructure resource that links API gateway components.
+kind: Gateway
+metadata:
+  name: api-gateway
+  namespace: consul
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "nlb"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "ip"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+spec:
+  gatewayClassName: consul
+  # Configures the listener that is bound to the gateway's address.
+  listeners:
+    # Defines the listener protocol (HTTP, HTTPS, or TCP)
+  - protocol: HTTP
+    port: 8080
+    name: http
+    allowedRoutes:
+      namespaces:
+        from: All
+#  - protocol: HTTPS
+#    port: 8443
+#    name: https
+#    allowedRoutes:
+#      namespaces:
+#        from: All
+#    tls:
+#      certificateRefs:
+#        - name: consul-server-cert
