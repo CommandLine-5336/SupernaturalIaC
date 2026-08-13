@@ -9,9 +9,9 @@ spec:
   sources:
     - name: general
       action: allow
-    - name: mail_service
+    - name: mail-service
       action: allow
-    - name: auth
+    - name: auth-service
       action: allow
     - name: cleanup
       action: allow

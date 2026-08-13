@@ -1,8 +1,16 @@
-resource "aws_iam_user" "github_action_user" {
-  name = "github_action_ecr"
-  tags = {
-    description = "role for github action pul and build ecr"
+terraform {
+  required_version = "1.15.8"
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 6.58"
+    }
   }
+}
+
+resource "aws_iam_user" "github_action_user" {
+  name = var.name
+  tags = var.tags
 }
 
 resource "aws_iam_policy" "github_action_policy" {
@@ -39,8 +47,6 @@ resource "aws_iam_policy" "github_action_policy" {
     }
   )
 }
-
-
 resource "aws_iam_user_policy_attachment" "github_action_access" {
   user       = aws_iam_user.github_action_user.name
   policy_arn = aws_iam_policy.github_action_policy.arn
