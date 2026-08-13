@@ -11,7 +11,7 @@ spec:
       action: allow
     - name: mail-service
       action: allow
-    - name: auth-service
+    - name: auth
       action: allow
     - name: cleanup
       action: allow

@@ -1,7 +1,7 @@
 apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
-  name: mail-service-intentions
+  name: mail-intentions
   namespace: app
 spec:
   destination:
@@ -9,7 +9,9 @@ spec:
   sources:
     - name: frontend
       action: allow
-    - name: password_generator
+    - name: password-protection
+      action: allow
+    - name: auth
       action: allow
     - name: "*"
       action: deny
