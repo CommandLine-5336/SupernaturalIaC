@@ -21,7 +21,7 @@ resource "aws_eks_cluster" "eks-cluster" {
     endpoint_private_access = true
     endpoint_public_access  = true
 
-    subnet_ids         = flatten([custom_vpc.public_subnets_id, custom_vpc.private_app_subnets_id])
+    subnet_ids         = flatten([var.vpc_public_subnet_ids, var.vpc_private_subnet_ids])
     security_group_ids = var.security_group_ids
   }
   enabled_cluster_log_types = [

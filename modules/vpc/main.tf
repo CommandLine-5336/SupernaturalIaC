@@ -167,3 +167,54 @@ resource "aws_vpc_endpoint" "ecr-api-endpoint" {
   security_group_ids  = [var.ecr_sg_id]
   subnet_ids          = aws_subnet.private_app[*].id
 }
+
+
+resource "aws_vpc_endpoint" "ssm" {
+  vpc_id              = aws_vpc.myvpc.id
+  service_name        = "com.amazonaws.${var.region}.ssm"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private_app[*].id
+  security_group_ids  = var.ssm_sg_id
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.env}-vpc-ssm"
+    Environment = var.env
+  }
+}
+
+resource "aws_vpc_endpoint" "ssm_messages" {
+  vpc_id              = aws_vpc.myvpc.id
+  service_name        = "com.amazonaws.${var.region}.ssmmessages"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private_app[*].id
+  security_group_ids  = var.ssm_sg_id
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.env}-vpc-ssmmessages"
+    Environment = var.env
+  }
+}
+
+resource "aws_vpc_endpoint" "ec2_messages" {
+  vpc_id              = aws_vpc.myvpc.id
+  service_name        = "com.amazonaws.${var.region}.ec2messages"
+  vpc_endpoint_type   = "Interface"
+  subnet_ids          = aws_subnet.private_app[*].id
+  security_group_ids  = var.ssm_sg_id
+  private_dns_enabled = true
+
+  tags = {
+    Name        = "${var.env}-vpc-ec2messages"
+    Environment = var.env
+  }
+}
+resource "aws_vpc_endpoint" "sts" {
+  vpc_id              = aws_vpc.myvpc.id
+  service_name        = "com.amazonaws.${var.region}.sts"
+  vpc_endpoint_type   = "Interface"
+  private_dns_enabled = true
+  subnet_ids          = aws_subnet.private_app[*].id
+  security_group_ids  = [var.ecr_sg_id]
+}

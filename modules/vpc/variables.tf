@@ -46,3 +46,9 @@ variable "ecr_sg_id" {
   description = "Sg ID for the ECR endpoints"
   type        = string
 }
+
+
+variable "ssm_sg_id" {
+  type    = list(string)
+  default = null
+}
