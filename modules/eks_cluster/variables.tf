@@ -69,10 +69,6 @@ variable "addons" {
       name        = "eks-pod-identity-agent"
       most_recent = true
     }
-    metrics-server = {
-      name        = "metrics-server"
-      most_recent = true
-    }
 
   }
 }
