@@ -1,21 +1,21 @@
-data "aws_vpc" "default" {
-  default = true
-}
+# data "aws_vpc" "default" {
+#   default = true
+# }
 
-data "aws_subnets" "default" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.default.id]
-  }
-  filter {
-    name   = "availability-zone"
-    values = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1f"]
-  }
-}
-data "aws_security_group" "default" {
-  vpc_id = data.aws_vpc.default.id
-  name   = "default"
-}
+# data "aws_subnets" "default" {
+#   filter {
+#     name   = "vpc-id"
+#     values = [data.aws_vpc.default.id]
+#   }
+#   filter {
+#     name   = "availability-zone"
+#     values = ["us-east-1a", "us-east-1b", "us-east-1c", "us-east-1d", "us-east-1f"]
+#   }
+# }
+# data "aws_security_group" "default" {
+#   vpc_id = data.aws_vpc.default.id
+#   name   = "default"
+# }
 
 module "eks-cluster" {
   # private are required for EKS but public are optional
@@ -25,9 +25,9 @@ module "eks-cluster" {
   eks_name               = "supernatural-eks-cluster"
   cluster_role_arn       = module.eks_cluster_role.role_arn
   node_role_arn          = module.eks_node_role.role_arn
-  vpc_private_subnet_ids = data.aws_subnets.default.ids #module.custom_vpc.private_app_subnets_id
+  vpc_private_subnet_ids = module.custom_vpc.private_app_subnets_id #module.custom_vpc.private_app_subnets_id
   vpc_public_subnet_ids  = []
-  security_group_ids     = [data.aws_security_group.default.id] #[aws_security_group.private_app_sg.id]
+  security_group_ids     = [aws_security_group.private_app_sg.id] #[aws_security_group.private_app_sg.id]
   node_group_name        = "supernatural-node-group"
   instance_types         = ["t3.medium"]
   depends_on = [
