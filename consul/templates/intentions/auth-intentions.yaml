@@ -1,4 +1,12 @@
 apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: auth
+  namespace: app
+spec:
+  protocol: http
+---
+apiVersion: consul.hashicorp.com/v1alpha1
 kind: ServiceIntentions
 metadata:
   name: auth
@@ -7,6 +15,8 @@ spec:
   destination:
     name: auth
   sources:
+    - name: api-gateway
+      action: allow
     - name: frontend
       action: allow
     - name: "*"
