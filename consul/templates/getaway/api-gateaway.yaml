@@ -14,7 +14,7 @@ spec:
   listeners:
     # Defines the listener protocol (HTTP, HTTPS, or TCP)
   - protocol: HTTP
-    port: 8080
+    port: 80
     name: http
     allowedRoutes:
       namespaces:
