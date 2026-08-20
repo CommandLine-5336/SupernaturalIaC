@@ -46,6 +46,7 @@ variable "instance_types" {
   type        = list(string)
   default     = ["t3.medium"]
 }
+
 variable "addons" {
   description = "List of EKS addons to be installed"
   type = map(object({

@@ -1,0 +1,54 @@
+variable "vpc_name" {
+  description = "The name of the VPC"
+  type        = string
+}
+
+variable "vpc_cidr" {
+  description = "CIDR block for the VPC"
+  type        = string
+  default     = "10.0.0.0/16"
+}
+
+variable "azs" {
+  description = "Availability zones to use"
+  type        = list(string)
+}
+
+variable "public_subnets" {
+  description = "List of public subnet CIDR blocks"
+  type        = list(string)
+}
+variable "private_app_subnets" {
+  description = "List of private subnet CIDR blocks for application in EKS"
+  type        = list(string)
+}
+variable "private_db_subnets" {
+  description = "List of private subnet CIDR blocks for RDS database"
+  type        = list(string)
+}
+variable "eks_name" {
+  description = "EKS cluster name"
+  type        = string
+  default     = "supernatural-eks-cluster"
+}
+
+variable "env" {
+  type    = string
+  default = "Dev"
+}
+
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
+
+variable "ecr_sg_id" {
+  description = "Sg ID for the ECR endpoints"
+  type        = string
+}
+
+
+variable "ssm_sg_id" {
+  type    = list(string)
+  default = null
+}
