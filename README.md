@@ -22,10 +22,10 @@ Our folder structure:
 
 * [Terraform](https://developer.hashicorp.com/terraform/install) v1.15.8
 * [aws-cli](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) v2.31.35
-* [kubenetes](https://kubernetes.io/docs/tasks/tools/):
-    * Client v1.36.3
-    * Kustomize v5.8.1
-    * Server v.1.36.2
+* [kubernetes](https://kubernetes.io/docs/tasks/tools/):
+  * Client v1.36.3
+  * Kustomize v5.8.1
+  * Server v.1.36.2
 * [Helm](https://helm.sh/docs/intro/install/) v4.2.3
 
 ## Steps to Run
