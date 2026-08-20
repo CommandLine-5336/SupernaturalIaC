@@ -18,7 +18,7 @@ Consul service mesh, that allows different containers to securely communicate wi
   - `helm repo update`
 
 - Create load balancer controller
-  - `helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=supernatural-eks-cluster --set serviceAccount.create=false --set serviceAccount.name=general --set enableServiceMutatorWebhook=false`       #installation of lb controller pod that automatically creates aws nlb
+  - `helm install aws-load-balancer-controller eks/aws-load-balancer-controller -n kube-system --set clusterName=supernatural-eks-cluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller --set enableServiceMutatorWebhook=false` #installation of lb controller pod that automatically creates aws nlb
   - `kubectl get pods -n kube-system -l app.kubernetes.io/name=aws-load-balancer-controller -w` #check if pod is Ready (1/1)
 
 - Add EBS driver for storage class
@@ -41,10 +41,10 @@ Consul service mesh, that allows different containers to securely communicate wi
   - `kubectl get pods -n consul -w`      # check if all pods are Running and Ready (1/1)
   - `kubectl get pvc -n consul`          # check if all 3 are bound
 
-- Set up API gateaway and frontend route
+- Set up API gateaway, frontend route and a TLS certificate
   - `kubectl apply -f .\templates\getaway\api-gateaway.yaml`
   - `kubectl apply -f .\templates\getaway\frontend-route.yaml`
-
+  - `kubectl apply -f .\templates\getaway\certificate.yaml` # beware that you have to change dnsnames to your domain name
   - `kubectl get gateway -n consul -w` # check if Programmed is true
   - `kubectl get svc -n consul -l component=api-gateway`   # check if nlb hostname is listed
 
